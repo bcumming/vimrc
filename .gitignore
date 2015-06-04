@@ -1,0 +1,5 @@
+# vim temporaries
+*.swp
+*.swn
+*.swo
+*.swq
