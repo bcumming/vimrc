@@ -1,6 +1,30 @@
+ " skip initialization for vim-tiny or vim-small.
+ if 0 | endif
 
-" turn off vi-compatible mode
-set nocompatible
+ if has('vim_starting')
+   " turn off vi compatability
+   if &compatible
+     set nocompatible
+   endif
+
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+
+call neobundle#end()
+
+" required by neobundle
+filetype plugin indent on
+
+" prompt to install uninstalled bundles found on startup
+NeoBundleCheck
 
 set background=dark
 
