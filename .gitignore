@@ -3,3 +3,8 @@
 *.swn
 *.swo
 *.swq
+
+.netrwhist
+bundle/*
+
+.vim

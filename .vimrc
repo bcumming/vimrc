@@ -15,8 +15,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
+" ----------------
+" my bundles
+" ----------------
+" luna colorscheme
+NeoBundle 'notpratheek/vim-luna'
 
 call neobundle#end()
 
@@ -44,7 +47,7 @@ set nu
 set lazyredraw
 
 "set list " hilight tabs and trailing
-"set listchars=tab:>-,trail:-
+"set listchars=tab:-,trail:-
 
 " show matching brackets
 set showmatch
@@ -65,8 +68,12 @@ set cindent
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
 
-"colorscheme luna
-"set t_Co=256
+if has("gui_running")
+    colorscheme luna
+else
+    colorscheme luna-term
+    set t_Co=256
+endif
 
 let mapleader = "\<Space>"
 
