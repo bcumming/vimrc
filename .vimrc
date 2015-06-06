@@ -1,14 +1,14 @@
- " skip initialization for vim-tiny or vim-small.
- if 0 | endif
+" skip initialization for vim-tiny or vim-small.
+if 0 | endif
 
- if has('vim_starting')
-   " turn off vi compatability
-   if &compatible
-     set nocompatible
-   endif
+if has('vim_starting')
+    " turn off vi compatability
+    if &compatible
+        set nocompatible
+    endif
 
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -46,8 +46,9 @@ set nu
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
 
-"set list " hilight tabs and trailing
-"set listchars=tab:-,trail:-
+" hilight tabs and trailing spaces
+set list
+set listchars=tab:-.,trail:.
 
 " show matching brackets
 set showmatch
