@@ -20,6 +20,10 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " ----------------
 " luna colorscheme
 NeoBundle 'notpratheek/vim-luna'
+" sensible defaults
+NeoBundle 'tpope/vim-sensible'
+" airline status bar
+NeoBundle 'bling/vim-airline'
 
 call neobundle#end()
 
