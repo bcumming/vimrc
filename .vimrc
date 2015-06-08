@@ -24,6 +24,10 @@ NeoBundle 'notpratheek/vim-luna'
 NeoBundle 'tpope/vim-sensible'
 " airline status bar
 NeoBundle 'bling/vim-airline'
+" awesome git!
+NeoBundle 'tpope/vim-fugitive'
+" git in the gutter
+NeoBundle 'airblade/vim-gitgutter'
 
 call neobundle#end()
 
