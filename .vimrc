@@ -28,6 +28,8 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
 " git in the gutter
 NeoBundle 'airblade/vim-gitgutter'
+" use silver searcher in place of grep
+NeoBundle 'rking/ag.vim'
 
 call neobundle#end()
 
