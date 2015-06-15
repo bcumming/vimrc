@@ -19,7 +19,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " my bundles
 " ----------------
 " luna colorscheme
-NeoBundle 'notpratheek/vim-luna'
+NeoBundle 'bcumming/vim-luna'
 " sensible defaults
 NeoBundle 'tpope/vim-sensible'
 " airline status bar
