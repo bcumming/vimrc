@@ -34,13 +34,16 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
 NeoBundle 'vim-scripts/gitignore'
-" provides fuzzy completer and clang based cleverness
-NeoBundle 'Valloric/YouCompleteMe', {
-     \ 'build'      : {
-        \ 'mac'     : './install.sh --clang-completer',
-        \ 'unix'    : './install.sh --clang-completer',
-        \ }
-     \ }
+
+if v:version > 703
+    " provides fuzzy completer and clang based cleverness
+    NeoBundle 'Valloric/YouCompleteMe', {
+         \ 'build'      : {
+            \ 'mac'     : './install.sh --clang-completer',
+            \ 'unix'    : './install.sh --clang-completer',
+            \ }
+         \ }
+endif
 
 call neobundle#end()
 
