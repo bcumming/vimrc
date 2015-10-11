@@ -58,6 +58,9 @@ set background=dark
 " syntax hilighting
 syntax on
 
+" utf
+set encoding=utf-8
+
  " swap between buffers without needing to save
 set hidden
 
@@ -101,6 +104,11 @@ else
 endif
 
 let mapleader = "\<Space>"
+
+" use the combination jk to exit insert mode
+" ... easier than reaching up for the escape key
+inoremap jk <ESC>
+nnoremap <Leader>q :wqa<CR>
 
 " configure ctrlp to use ag for searching
 " this interacts nicely with the gitignore vim package
