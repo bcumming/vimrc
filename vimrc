@@ -53,7 +53,8 @@ filetype plugin indent on
 " prompt to install uninstalled bundles found on startup
 NeoBundleCheck
 
-set background=dark
+" set leader to space
+let mapleader = "\<Space>"
 
 " syntax hilighting
 syntax on
@@ -89,21 +90,32 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
+" hilight current line
+set cursorline
+
 set wrap
 set cindent
+
+" search options
+" search as characters are entered
+set incsearch
+" highlight matches
+set hlsearch
+" hit leader then "n" to remove hilights from previous search
+nnoremap <leader>n :nohlsearch<CR>
 
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
 
+" color scheme settings
+set background=dark
 if has("gui_running")
     colorscheme luna
 else
     colorscheme luna-term
     set t_Co=256
 endif
-
-let mapleader = "\<Space>"
 
 " use the combination jk to exit insert mode
 " ... easier than reaching up for the escape key
