@@ -34,6 +34,10 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
 NeoBundle 'vim-scripts/gitignore'
+" rainbow parenthesis
+NeoBundle 'kien/rainbow_parentheses.vim'
+" support for syntax, indentation etc in Julia
+NeoBundle 'JuliaLang/julia-vim'
 " provides fuzzy completer and clang based cleverness
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build'      : {
@@ -84,7 +88,10 @@ set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
 set wrap
-set cindent
+
+if has("autocmd")
+    filetype plugin indent on
+endif
 
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
@@ -98,6 +105,11 @@ else
 endif
 
 let mapleader = "\<Space>"
+
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+let g:rbpt_max = 16
 
 " configure ctrlp to use ag for searching
 " this interacts nicely with the gitignore vim package
