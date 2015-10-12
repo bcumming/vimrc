@@ -38,13 +38,16 @@ NeoBundle 'vim-scripts/gitignore'
 NeoBundle 'kien/rainbow_parentheses.vim'
 " support for syntax, indentation etc in Julia
 NeoBundle 'JuliaLang/julia-vim'
-" provides fuzzy completer and clang based cleverness
-NeoBundle 'Valloric/YouCompleteMe', {
-     \ 'build'      : {
-        \ 'mac'     : './install.sh --clang-completer',
-        \ 'unix'    : './install.sh --clang-completer',
-        \ }
-     \ }
+
+if v:version > 703
+    " provides fuzzy completer and clang based cleverness
+    NeoBundle 'Valloric/YouCompleteMe', {
+         \ 'build'      : {
+            \ 'mac'     : './install.sh --clang-completer',
+            \ 'unix'    : './install.sh --clang-completer',
+            \ }
+         \ }
+endif
 
 call neobundle#end()
 
@@ -54,10 +57,14 @@ filetype plugin indent on
 " prompt to install uninstalled bundles found on startup
 NeoBundleCheck
 
-set background=dark
+" set leader to space
+let mapleader = "\<Space>"
 
 " syntax hilighting
 syntax on
+
+" utf
+set encoding=utf-8
 
  " swap between buffers without needing to save
 set hidden
@@ -87,16 +94,29 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
+" hilight current line
+set cursorline
+
 set wrap
 
 if has("autocmd")
     filetype plugin indent on
 endif
 
+" search options
+" search as characters are entered
+set incsearch
+" highlight matches
+set hlsearch
+" hit leader then "n" to remove hilights from previous search
+nnoremap <leader>n :nohlsearch<CR>
+
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
 
+" color scheme settings
+set background=dark
 if has("gui_running")
     colorscheme luna
 else
@@ -104,7 +124,10 @@ else
     set t_Co=256
 endif
 
-let mapleader = "\<Space>"
+" use the combination jk to exit insert mode
+" ... easier than reaching up for the escape key
+inoremap jk <ESC>
+nnoremap <Leader>q :wqa<CR>
 
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
