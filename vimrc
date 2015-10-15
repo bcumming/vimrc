@@ -44,7 +44,7 @@ if v:version > 703
     NeoBundle 'Valloric/YouCompleteMe', {
          \ 'build'      : {
             \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh --clang-completer',
+            \ 'unix'    : './install.sh',
             \ }
          \ }
 endif
@@ -74,6 +74,8 @@ set iskeyword+=_,#
 
  " line numbers
 set nu
+" hit leader then "n" to remove line numbers
+nnoremap <leader>n :set nu!<CR>
 
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
@@ -109,7 +111,11 @@ set incsearch
 " highlight matches
 set hlsearch
 " hit leader then "n" to remove hilights from previous search
-nnoremap <leader>n :nohlsearch<CR>
+nnoremap <leader><Space> :nohlsearch<CR>
+
+" turn paste on
+" this ignores indentation rules when pasting
+nnoremap <leader>p :set paste! paste?<CR>
 
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
