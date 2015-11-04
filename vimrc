@@ -1,6 +1,10 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
+
+"------------------------------------------
+" neobundle
+"------------------------------------------
 if has('vim_starting')
     " turn off vi compatability
     if &compatible
@@ -15,9 +19,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" ----------------
-" my bundles
-" ----------------
+" --- my bundles ---
+
 " luna colorscheme
 NeoBundle 'bcumming/vim-luna'
 " sensible defaults
@@ -34,8 +37,6 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
 NeoBundle 'vim-scripts/gitignore'
-" rainbow parenthesis
-NeoBundle 'kien/rainbow_parentheses.vim'
 " support for syntax, indentation etc in Julia
 NeoBundle 'JuliaLang/julia-vim'
 
@@ -57,6 +58,10 @@ filetype plugin indent on
 " prompt to install uninstalled bundles found on startup
 NeoBundleCheck
 
+"------------------------------------------
+" general settings
+"------------------------------------------
+
 " set leader to space
 let mapleader = "\<Space>"
 
@@ -74,8 +79,6 @@ set iskeyword+=_,#
 
  " line numbers
 set nu
-" hit leader then "n" to remove line numbers
-nnoremap <leader>n :set nu!<CR>
 
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
@@ -87,8 +90,8 @@ set listchars=tab:-.,trail:.
 " show matching brackets
 set showmatch
 
-" leave 5 rows of space when scrolling
-set scrolloff=5
+" leave 10 rows of space when scrolling
+set scrolloff=10
 
 " text formatting
 set expandtab
@@ -96,22 +99,71 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
-" hilight current line
-set cursorline
-
+" wrap long lines
 set wrap
 
 if has("autocmd")
     filetype plugin indent on
 endif
 
+" Tell vim to remember certain things when we exit
+" '10  :  marks will be remembered for up to 10 previously edited files
+" "100 :  will save up to 100 lines for each register
+" :20  :  up to 20 lines of command-line history will be remembered
+set viminfo='10,\"100,:20,%,n~/.viminfo
+
+" now restore position based on info saved in viminfo
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
+"------------------------------------------
 " search options
+"------------------------------------------
 " search as characters are entered
 set incsearch
 " highlight matches
 set hlsearch
-" hit leader then "n" to remove hilights from previous search
+
+"------------------------------------------
+" color scheme settings
+"------------------------------------------
+set background=dark
+if has("gui_running")
+    colorscheme luna
+else
+    colorscheme luna-term
+    set t_Co=256
+endif
+
+" hilight current line by making the row number on the lhs stand out
+set cursorline
+hi CursorLine ctermbg=NONE cterm=NONE term=NONE
+hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
+
+"------------------------------------------
+" key bindings
+"------------------------------------------
+
+" hit leader then "n" to remove line numbers
+nnoremap <leader>n :set nu!<CR>
+
+" hit space space to remove hilights from previous search
 nnoremap <leader><Space> :nohlsearch<CR>
+
+" use the combination jk to exit insert mode
+" ... easier than reaching up for the escape key
+inoremap jk <ESC>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>Q :wqa<CR>
 
 " turn paste on
 " this ignores indentation rules when pasting
@@ -121,25 +173,11 @@ nnoremap <leader>p :set paste! paste?<CR>
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
 
-" color scheme settings
-set background=dark
-if has("gui_running")
-    colorscheme luna
-else
-    colorscheme luna-term
-    set t_Co=256
-endif
+"------------------------------------------
+" plugin-specific settings
+"------------------------------------------
 
-" use the combination jk to exit insert mode
-" ... easier than reaching up for the escape key
-inoremap jk <ESC>
-nnoremap <Leader>q :wqa<CR>
-
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-let g:rbpt_max = 16
-
+" --- ctrlp ---
 " configure ctrlp to use ag for searching
 " this interacts nicely with the gitignore vim package
 let g:ctrlp_use_caching = 0
