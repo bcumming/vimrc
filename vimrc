@@ -39,6 +39,8 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'vim-scripts/gitignore'
 " support for syntax, indentation etc in Julia
 NeoBundle 'JuliaLang/julia-vim'
+" easy swapping of windows
+NeoBundle 'wesQ3/vim-windowswap.git'
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
@@ -152,6 +154,9 @@ hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
 "------------------------------------------
 " key bindings
 "------------------------------------------
+
+" hit leader then "e" to reload files that have changed outside the editor
+nnoremap <leader>e :edit<CR>
 
 " hit leader then "n" to remove line numbers
 nnoremap <leader>n :set nu!<CR>
