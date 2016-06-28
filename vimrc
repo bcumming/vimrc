@@ -164,6 +164,7 @@ nnoremap <leader><Space> :nohlsearch<CR>
 inoremap jk <ESC>
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>Q :wqa<CR>
+nnoremap <Leader>w :w<CR>
 
 " turn paste on
 " this ignores indentation rules when pasting
