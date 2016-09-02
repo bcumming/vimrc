@@ -54,7 +54,8 @@ endif
 
 call neobundle#end()
 
-" required by neobundle
+" turn on file specific rules set in the path ~/.vim/after/__language__.vim
+" also required by neobundle
 filetype plugin indent on
 
 " prompt to install uninstalled bundles found on startup
@@ -103,10 +104,6 @@ set tabstop=4 " make real tabs 4 wide
 
 " wrap long lines
 set wrap
-
-if has("autocmd")
-    filetype plugin indent on
-endif
 
 " Tell vim to remember certain things when we exit
 " '10  :  marks will be remembered for up to 10 previously edited files
