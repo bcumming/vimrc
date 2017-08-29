@@ -47,7 +47,7 @@ if v:version > 703
     NeoBundle 'Valloric/YouCompleteMe', {
          \ 'build'      : {
             \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh',
+            \ 'unix'    : './install.sh --clang-completer',
             \ }
          \ }
 endif
@@ -175,6 +175,11 @@ nnoremap <leader>p :set paste! paste?<CR>
 " make left and right keys cycle between tabs
 nnoremap <Right> :tabnext<CR>
 nnoremap <Left>  :tabprev<CR>
+
+" go to definition of variable/type/function under cursor
+nnoremap <leader>d  ::YcmCompleter GoTo<CR>
+" print type of symbol under the cursor
+nnoremap <leader>t  ::YcmCompleter GetType<CR>
 
 "------------------------------------------
 " plugin-specific settings
