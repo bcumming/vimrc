@@ -146,7 +146,7 @@ endif
 " hilight current line by making the row number on the lhs stand out
 set cursorline
 hi CursorLine ctermbg=NONE cterm=NONE term=NONE
-hi CursorLineNr ctermfg=117 ctermbg=236  term=bold cterm=bold
+hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 
 "------------------------------------------
 " key bindings
