@@ -41,6 +41,8 @@ NeoBundle 'vim-scripts/gitignore'
 NeoBundle 'JuliaLang/julia-vim'
 " easy swapping of windows
 NeoBundle 'wesQ3/vim-windowswap.git'
+" unicode from latex
+NeoBundle 'joom/latex-unicoder.vim'
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
@@ -180,6 +182,13 @@ nnoremap <Left>  :tabprev<CR>
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
+
+" latex to unicode
+let g:unicoder_cancel_normal = 1
+let g:unicoder_cancel_insert = 1
+let g:unicoder_cancel_visual = 1
+nnoremap <leader>l :call unicoder#start(0)<CR>
+vnoremap <leader>l :<C-u>call unicoder#selection()<CR>
 
 "------------------------------------------
 " plugin-specific settings
