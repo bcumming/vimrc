@@ -1,7 +1,6 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-
 "------------------------------------------
 " neobundle
 "------------------------------------------
@@ -67,22 +66,19 @@ NeoBundleCheck
 " general settings
 "------------------------------------------
 
-" set leader to space
-let mapleader = "\<Space>"
-
 " syntax hilighting
 syntax on
 
 " utf
 set encoding=utf-8
 
- " swap between buffers without needing to save
+" swap between buffers without needing to save
 set hidden
 
 " none of these are word dividers
 set iskeyword+=_,#
 
- " line numbers
+" line numbers
 set nu
 
 " optimize macro execution by not redrawing until macro is finished
@@ -153,6 +149,9 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 "------------------------------------------
 " key bindings
 "------------------------------------------
+"
+" set leader to space
+let mapleader = "\<Space>"
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
@@ -163,20 +162,21 @@ nnoremap <leader>n :set nu!<CR>
 " hit space space to remove hilights from previous search
 nnoremap <leader><Space> :nohlsearch<CR>
 
-" use the combination jk to exit insert mode
-" ... easier than reaching up for the escape key
-inoremap jk <ESC>
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>Q :wqa<CR>
-nnoremap <Leader>w :w<CR>
-
-" turn paste on
+" toggle paste mode
 " this ignores indentation rules when pasting
 nnoremap <leader>p :set paste! paste?<CR>
 
 " make left and right keys cycle between tabs
-nnoremap <Right> :tabnext<CR>
-nnoremap <Left>  :tabprev<CR>
+nnoremap <right> :tabnext<CR>
+nnoremap <left>  :tabprev<CR>
+" make up and down keys move tabs left and right
+nnoremap <up>    :tabm -1<CR>
+nnoremap <down>  :tabm +1<CR>
+" use leader with up-down and left-right to switch window focus
+nnoremap <leader>l <C-w>l
+nnoremap <leader>h <C-w>h
+nnoremap <leader>k <C-w>k
+nnoremap <leader>j <C-w>j
 
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
@@ -187,8 +187,8 @@ nnoremap <leader>t  ::YcmCompleter GetType<CR>
 let g:unicoder_cancel_normal = 1
 let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
-nnoremap <leader>l :call unicoder#start(0)<CR>
-vnoremap <leader>l :<C-u>call unicoder#selection()<CR>
+nnoremap <leader>u :call unicoder#start(0)<CR>
+vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
 
 "------------------------------------------
 " plugin-specific settings
