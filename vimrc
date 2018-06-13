@@ -172,11 +172,16 @@ nnoremap <left>  :tabprev<CR>
 " make up and down keys move tabs left and right
 nnoremap <up>    :tabm -1<CR>
 nnoremap <down>  :tabm +1<CR>
-" use leader with up-down and left-right to switch window focus
+" use leader with "lhkj" movements to switch window focus
 nnoremap <leader>l <C-w>l
 nnoremap <leader>h <C-w>h
 nnoremap <leader>k <C-w>k
 nnoremap <leader>j <C-w>j
+" use leader with up-down-left-right to resize the current window
+nnoremap <leader><right> :vertical resize +5<CR>
+nnoremap <leader><left>  :vertical resize -5<CR>
+nnoremap <leader><up>    :resize +5<CR>
+nnoremap <leader><down>  :resize -5<CR>
 
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
