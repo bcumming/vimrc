@@ -149,7 +149,19 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 "------------------------------------------
 " key bindings
 "------------------------------------------
-"
+
+" in interactive mode hitting ;; quickly produces an underscore
+inoremap ;; _
+
+" automatic closing of braces and quotes
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
 " set leader to space
 let mapleader = "\<Space>"
 
