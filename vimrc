@@ -162,6 +162,12 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
+inoremap "" ""
+inoremap '' ''
+inoremap () ()
+inoremap [] []
+inoremap {} {}
+
 " set leader to space
 let mapleader = "\<Space>"
 
