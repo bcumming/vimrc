@@ -1,73 +1,73 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-"------------------------------------------
-" neobundle
-"------------------------------------------
-if has('vim_starting')
-    " turn off vi compatability
-    if &compatible
-        set nocompatible
-    endif
-
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+" Required:
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+if dein#load_state('~/.vim/bundle/')
+  call dein#begin('~/.vim/bundle/')
 
-" --- my bundles ---
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-" luna colorscheme
-NeoBundle 'bcumming/vim-luna'
-" sensible defaults
-NeoBundle 'tpope/vim-sensible'
+  " Add or remove your plugins here like this:
+  call dein#add('bcumming/vim-luna')
+  " sensible defaults
+  call dein#add('tpope/vim-sensible')
 " airline status bar
-NeoBundle 'bling/vim-airline'
+  call dein#add('bling/vim-airline')
 " awesome git!
-NeoBundle 'tpope/vim-fugitive'
+  call dein#add('tpope/vim-fugitive')
 " git in the gutter
-NeoBundle 'airblade/vim-gitgutter'
+  call dein#add('airblade/vim-gitgutter')
 " use silver searcher in place of grep
-NeoBundle 'rking/ag.vim'
+  call dein#add('rking/ag.vim')
 " control-p for finding files
-NeoBundle 'kien/ctrlp.vim'
+  call dein#add('kien/ctrlp.vim')
 " use .gitignore to filter for commands that search files
-NeoBundle 'vim-scripts/gitignore'
+  call dein#add('vim-scripts/gitignore')
 " support for syntax, indentation etc in Julia
-NeoBundle 'JuliaLang/julia-vim'
+  call dein#add('JuliaLang/julia-vim')
 " easy swapping of windows
-NeoBundle 'wesQ3/vim-windowswap.git'
+  call dein#add('wesQ3/vim-windowswap.git')
 " unicode from latex
-NeoBundle 'joom/latex-unicoder.vim'
+  call dein#add('joom/latex-unicoder.vim')
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
-    NeoBundle 'Valloric/YouCompleteMe', {
-         \ 'build'      : {
-            \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh --clang-completer',
-            \ }
-         \ }
+    call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer'})
 endif
 
-call neobundle#end()
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
 
+" Required:
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
 " also required by neobundle
 filetype plugin indent on
 
-" prompt to install uninstalled bundles found on startup
-NeoBundleCheck
+" syntax hilighting
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
 
 "------------------------------------------
 " general settings
 "------------------------------------------
-
-" syntax hilighting
-syntax on
 
 " utf
 set encoding=utf-8
@@ -107,7 +107,9 @@ set wrap
 " '10  :  marks will be remembered for up to 10 previously edited files
 " "100 :  will save up to 100 lines for each register
 " :20  :  up to 20 lines of command-line history will be remembered
-set viminfo='10,\"100,:20,%,n~/.viminfo
+if !has('nvim')
+  set viminfo='10,\"100,:20,%,n~/.viminfo
+endif
 
 " now restore position based on info saved in viminfo
 function! ResCur()
