@@ -217,6 +217,8 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
+" Go to include file on current line
+nnoremap <leader>o  ::YcmCompleter GoToInclude<CR>
 
 " latex to unicode
 let g:unicoder_cancel_normal = 1
