@@ -41,11 +41,18 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('joom/latex-unicoder.vim')
   call dein#add('thirtythreeforty/lessspace.vim')
   call dein#add('kana/vim-altr.git')
-
-if v:version > 703
+  " cpp snippets and auto-insertion of brackets
+  call dein#add('LucHermitte/lh-vim-lib')
+  call dein#add('LucHermitte/lh-style')
+  call dein#add('LucHermitte/lh-brackets')
+  call dein#add('LucHermitte/mu-template')
+  call dein#add('LucHermitte/lh-dev')
+  call dein#add('LucHermitte/alternate-lite')
+  call dein#add('LucHermitte/lh-cpp')
+  if v:version > 703
     " provides fuzzy completer and clang based cleverness
     call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer'})
-endif
+  endif
 
   " Required:
   call dein#end()
@@ -160,21 +167,6 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 " in interactive mode hitting ;; quickly produces an underscore
 inoremap ;; _
 
-" automatic closing of braces and quotes
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
-inoremap "" ""
-inoremap '' ''
-inoremap () ()
-inoremap [] []
-inoremap {} {}
-
 nmap <F2> <Plug>(altr-forward)
 nmap <F3> <Plug>(altr-back)
 
@@ -245,3 +237,7 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
+
+" --- lh-bracket ---
+" delete empty placeholders when we jump to them
+let g:marker_select_empty_marks = 0
