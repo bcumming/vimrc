@@ -39,7 +39,7 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('wesQ3/vim-windowswap.git')
 " unicode from latex
   call dein#add('joom/latex-unicoder.vim')
-  call dein#add('thirtythreeforty/lessspace.vim')  
+  call dein#add('thirtythreeforty/lessspace.vim')
   call dein#add('kana/vim-altr.git')
 
 if v:version > 703
@@ -211,6 +211,8 @@ nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
 
+" default compilation flags for Ycm
+let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
