@@ -39,6 +39,8 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('wesQ3/vim-windowswap.git')
 " unicode from latex
   call dein#add('joom/latex-unicoder.vim')
+  call dein#add('thirtythreeforty/lessspace.vim')  
+  call dein#add('kana/vim-altr.git')
 
 if v:version > 703
     " provides fuzzy completer and clang based cleverness
@@ -68,6 +70,9 @@ endif
 "------------------------------------------
 " general settings
 "------------------------------------------
+
+" Altr settings to switch between buffers
+call altr#define('%/src/%.cpp', '%/include/%.h')
 
 " utf
 set encoding=utf-8
@@ -169,6 +174,9 @@ inoremap '' ''
 inoremap () ()
 inoremap [] []
 inoremap {} {}
+
+nmap <F2> <Plug>(altr-forward)
+nmap <F3> <Plug>(altr-back)
 
 " set leader to space
 let mapleader = "\<Space>"
