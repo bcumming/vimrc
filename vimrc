@@ -165,10 +165,21 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 inoremap ;; _
 
 nmap <F2> <Plug>(altr-forward)
-nmap <F3> <Plug>(altr-back)
 
 " set leader to space
 let mapleader = "\<Space>"
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
@@ -208,6 +219,8 @@ nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
 " Go to include file on current line
 nnoremap <leader>o  ::YcmCompleter GoToInclude<CR>
+" Apply YCM FixIt
+nnoremap <leader><F9> :YcmCompleter FixIt<CR>
 
 " latex to unicode
 let g:unicoder_cancel_normal = 1
