@@ -41,14 +41,11 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('joom/latex-unicoder.vim')
   call dein#add('thirtythreeforty/lessspace.vim')
   call dein#add('kana/vim-altr.git')
-  " cpp snippets and auto-insertion of brackets
+  " auto-insertion of brackets-like characters with jump markers (hit <C-J> to
+  " jump to the next marker
   call dein#add('LucHermitte/lh-vim-lib')
   call dein#add('LucHermitte/lh-style')
   call dein#add('LucHermitte/lh-brackets')
-  call dein#add('LucHermitte/mu-template')
-  call dein#add('LucHermitte/lh-dev')
-  call dein#add('LucHermitte/alternate-lite')
-  call dein#add('LucHermitte/lh-cpp')
   if v:version > 703
     " provides fuzzy completer and clang based cleverness
     call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer'})
