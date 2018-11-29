@@ -46,6 +46,9 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('LucHermitte/lh-vim-lib')
   call dein#add('LucHermitte/lh-style')
   call dein#add('LucHermitte/lh-brackets')
+  " vim-localrc allows to specify local settings per folder (walking up the
+  " directory structure
+  call dein#add('thinca/vim-localrc')
   if v:version > 703
     " provides fuzzy completer and clang based cleverness
     call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer'})
@@ -111,6 +114,9 @@ set tabstop=4 " make real tabs 4 wide
 
 " wrap long lines
 set wrap
+
+" Do not fold when a file is opened
+set nofoldenable
 
 " Tell vim to remember certain things when we exit
 " '10  :  marks will be remembered for up to 10 previously edited files
@@ -228,6 +234,10 @@ let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
+
+" per project settings (.nvimrm / .vimrc)
+set exrc
+set secure
 
 "------------------------------------------
 " plugin-specific settings
