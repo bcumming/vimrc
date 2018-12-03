@@ -118,6 +118,9 @@ set wrap
 " Do not fold when a file is opened
 set nofoldenable
 
+" Hit Esc twice to save the file
+map <Esc><Esc> :wall<CR>
+
 " Tell vim to remember certain things when we exit
 " '10  :  marks will be remembered for up to 10 previously edited files
 " "100 :  will save up to 100 lines for each register
