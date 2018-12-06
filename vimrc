@@ -238,6 +238,10 @@ let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
 
+" tab labeling ([tab number] filename modifiedPlusSign)
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 " per project settings (.nvimrm / .vimrc)
 set exrc
 set secure
