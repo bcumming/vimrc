@@ -242,6 +242,10 @@ vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
+" autoread files, i.e. reload on change (on terminal focus a check is run)
+set autoread
+au FocusGained * :checktime
+
 " per project settings (.nvimrm / .vimrc)
 set exrc
 set secure
