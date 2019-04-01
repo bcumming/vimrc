@@ -51,13 +51,17 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('thinca/vim-localrc')
   if v:version > 703
     " provides fuzzy completer and clang based cleverness
-    call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer'})
+    call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer --clangd-completer'})
   endif
 
   " Required:
   call dein#end()
   call dein#save_state()
 endif
+
+" Use clang completer instead of clangd (the latter one does not work as I
+" want it to work yet)
+let g:ycm_use_clangd = 0
 
 " Required:
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
@@ -96,9 +100,28 @@ set nu
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
 
-" hilight tabs and trailing spaces
+" hilight tabs
 set list
-set listchars=tab:-.,trail:█
+set listchars=tab:>-
+
+" highlight trailing whitespaces
+:highlight ExtraWhitespace ctermbg=red guibg=red
+" Show trailing whitespace:
+:match ExtraWhitespace /\s\+$/
+"
+" " Show trailing whitespace and spaces before a tab:
+:match ExtraWhitespace /\s\+$\| \+\ze\t/
+"
+" " Show tabs that are not at the start of a line:
+:match ExtraWhitespace /[^\t]\zs\t\+/
+"
+" " Show spaces used for indenting (so you use only tabs for indenting).
+" :match ExtraWhitespace /^\t*\zs \+/
+"
+" " Switch off :match highlighting.
+" :match
+"
+
 
 " show matching brackets
 set showmatch
