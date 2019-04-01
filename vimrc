@@ -28,7 +28,7 @@ if dein#load_state('~/.vim/bundle/')
 " git in the gutter
   call dein#add('airblade/vim-gitgutter')
 " use silver searcher in place of grep
-  call dein#add('rking/ag.vim')
+  call dein#add('mileszs/ack.vim')
 " control-p for finding files
   call dein#add('kien/ctrlp.vim')
 " use .gitignore to filter for commands that search files
@@ -75,6 +75,10 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+" if dein#check_update()
+"  call dein#update()
+" endif
 
 "End dein Scripts-------------------------
 
@@ -288,6 +292,7 @@ let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
+    let g:ackprg = 'ag --vimgrep'
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
