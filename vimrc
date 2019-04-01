@@ -82,6 +82,10 @@ endif
 " general settings
 "------------------------------------------
 
+" tab completion to complete only common parts
+set wildmode=longest,list,full
+set wildmenu
+
 " Altr settings to switch between buffers
 call altr#define('%/src/%.cpp', '%/include/%.h')
 
