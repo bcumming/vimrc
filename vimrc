@@ -301,6 +301,10 @@ else
     \ }
 endif
 
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+
+
 " --- lh-bracket ---
 " delete empty placeholders when we jump to them
 let g:marker_select_empty_marks = 0
