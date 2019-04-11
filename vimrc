@@ -308,3 +308,9 @@ hi! NonText ctermbg=NONE guibg=NONE
 " --- lh-bracket ---
 " delete empty placeholders when we jump to them
 let g:marker_select_empty_marks = 0
+
+" use system clipboard for copying
+set clipboard+=unnamedplus
+" Esc with jkj or kjj insert mode
+imap jkj <Esc>
+imap kjj <Esc>
