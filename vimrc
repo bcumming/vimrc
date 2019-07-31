@@ -1,73 +1,97 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-"------------------------------------------
-" neobundle
-"------------------------------------------
-if has('vim_starting')
-    " turn off vi compatability
-    if &compatible
-        set nocompatible
-    endif
-
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+" Required:
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Required:
+if dein#load_state('~/.vim/bundle/')
+  call dein#begin('~/.vim/bundle/')
 
-" --- my bundles ---
+  " Let dein manage dein
+  " Required:
+  call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-" luna colorscheme
-NeoBundle 'bcumming/vim-luna'
-" sensible defaults
-NeoBundle 'tpope/vim-sensible'
+  " Add or remove your plugins here like this:
+  call dein#add('bcumming/vim-luna')
+  " sensible defaults
+  call dein#add('tpope/vim-sensible')
 " airline status bar
-NeoBundle 'bling/vim-airline'
+  call dein#add('bling/vim-airline')
 " awesome git!
-NeoBundle 'tpope/vim-fugitive'
+  call dein#add('tpope/vim-fugitive')
 " git in the gutter
-NeoBundle 'airblade/vim-gitgutter'
+  call dein#add('airblade/vim-gitgutter')
 " use silver searcher in place of grep
-NeoBundle 'rking/ag.vim'
+  call dein#add('mileszs/ack.vim')
 " control-p for finding files
-NeoBundle 'kien/ctrlp.vim'
+  call dein#add('kien/ctrlp.vim')
 " use .gitignore to filter for commands that search files
-NeoBundle 'vim-scripts/gitignore'
+  call dein#add('vim-scripts/gitignore')
 " support for syntax, indentation etc in Julia
-NeoBundle 'JuliaLang/julia-vim'
+  call dein#add('JuliaLang/julia-vim')
 " easy swapping of windows
-NeoBundle 'wesQ3/vim-windowswap.git'
+  call dein#add('wesQ3/vim-windowswap.git')
 " unicode from latex
-NeoBundle 'joom/latex-unicoder.vim'
-
-if v:version > 703
+  call dein#add('joom/latex-unicoder.vim')
+  call dein#add('thirtythreeforty/lessspace.vim')
+  call dein#add('kana/vim-altr.git')
+  " auto-insertion of brackets-like characters with jump markers (hit <C-J> to
+  " jump to the next marker
+  call dein#add('LucHermitte/lh-vim-lib')
+  call dein#add('LucHermitte/lh-style')
+  call dein#add('LucHermitte/lh-brackets')
+  " vim-localrc allows to specify local settings per folder (walking up the
+  " directory structure
+  call dein#add('thinca/vim-localrc')
+  if v:version > 703
     " provides fuzzy completer and clang based cleverness
-    NeoBundle 'Valloric/YouCompleteMe', {
-         \ 'build'      : {
-            \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh --clang-completer',
-            \ }
-         \ }
+    call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer --clangd-completer'})
+  endif
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
 endif
 
-call neobundle#end()
+" Use clang completer instead of clangd (the latter one does not work as I
+" want it to work yet)
+let g:ycm_use_clangd = 0
 
+" Required:
 " turn on file specific rules set in the path ~/.vim/after/__language__.vim
 " also required by neobundle
 filetype plugin indent on
 
-" prompt to install uninstalled bundles found on startup
-NeoBundleCheck
+" syntax hilighting
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+" if dein#check_update()
+"  call dein#update()
+" endif
+
+"End dein Scripts-------------------------
 
 "------------------------------------------
 " general settings
 "------------------------------------------
 
-" syntax hilighting
-syntax on
+" tab completion to complete only common parts
+set wildmode=longest,list,full
+set wildmenu
+
+" Altr settings to switch between buffers
+call altr#define('%/src/%.cpp', '%/include/%.h')
 
 " utf
 set encoding=utf-8
@@ -84,9 +108,28 @@ set nu
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
 
-" hilight tabs and trailing spaces
+" hilight tabs
 set list
-set listchars=tab:-.,trail:.
+set listchars=tab:>-
+
+" highlight trailing whitespaces
+:highlight ExtraWhitespace ctermbg=red guibg=red
+" Show trailing whitespace:
+:match ExtraWhitespace /\s\+$/
+"
+" " Show trailing whitespace and spaces before a tab:
+:match ExtraWhitespace /\s\+$\| \+\ze\t/
+"
+" " Show tabs that are not at the start of a line:
+:match ExtraWhitespace /[^\t]\zs\t\+/
+"
+" " Show spaces used for indenting (so you use only tabs for indenting).
+" :match ExtraWhitespace /^\t*\zs \+/
+"
+" " Switch off :match highlighting.
+" :match
+"
+
 
 " show matching brackets
 set showmatch
@@ -103,11 +146,19 @@ set tabstop=4 " make real tabs 4 wide
 " wrap long lines
 set wrap
 
+" Do not fold when a file is opened
+set nofoldenable
+
+" Hit Esc twice to save the file
+map <Esc><Esc> :wall<CR>
+
 " Tell vim to remember certain things when we exit
 " '10  :  marks will be remembered for up to 10 previously edited files
 " "100 :  will save up to 100 lines for each register
 " :20  :  up to 20 lines of command-line history will be remembered
-set viminfo='10,\"100,:20,%,n~/.viminfo
+if !has('nvim')
+  set viminfo='10,\"100,:20,%,n~/.viminfo
+endif
 
 " now restore position based on info saved in viminfo
 function! ResCur()
@@ -153,23 +204,22 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 " in interactive mode hitting ;; quickly produces an underscore
 inoremap ;; _
 
-" automatic closing of braces and quotes
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
-inoremap "" ""
-inoremap '' ''
-inoremap () ()
-inoremap [] []
-inoremap {} {}
+nmap <F2> <Plug>(altr-forward)
 
 " set leader to space
 let mapleader = "\<Space>"
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
@@ -201,10 +251,16 @@ nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
 
+" default compilation flags for Ycm
+let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
+" Go to include file on current line
+nnoremap <leader>o  ::YcmCompleter GoToInclude<CR>
+" Apply YCM FixIt
+nnoremap <leader><F9> :YcmCompleter FixIt<CR>
 
 " latex to unicode
 let g:unicoder_cancel_normal = 1
@@ -212,6 +268,18 @@ let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
+
+" tab labeling ([tab number] filename modifiedPlusSign)
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" autoread files, i.e. reload on change (on terminal focus a check is run)
+set autoread
+au FocusGained * :checktime
+
+" per project settings (.nvimrm / .vimrc)
+set exrc
+set secure
 
 "------------------------------------------
 " plugin-specific settings
@@ -224,6 +292,7 @@ let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
+    let g:ackprg = 'ag --vimgrep'
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
@@ -231,3 +300,17 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
+
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+
+
+" --- lh-bracket ---
+" delete empty placeholders when we jump to them
+let g:marker_select_empty_marks = 0
+
+" use system clipboard for copying
+set clipboard+=unnamedplus
+" Esc with jkj or kjj insert mode
+imap jkj <Esc>
+imap kjj <Esc>

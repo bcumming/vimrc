@@ -8,8 +8,19 @@ The aim is to have a "nice" vim experience that is portable from desktop/laptop 
 cd ~
 mv .vim .vim_back
 mv .vimrc .vimrc_back
-git clone --recursive https://github.com/bcumming/vimrc.git .vim
+git clone --recursive https://github.com/finkandreas/vimrc.git .vim
 ln -s .vim/vimrc .vimrc
+# neovim support
+mkdir -p .config/nvim && ln -s ~/.vim/init.vim .config/nvim/init.vim
 vim .vimrc
-# neobundle will ask whether you want to install packages: say OK and go fix a cup of coffee
+# dein will ask whether you want to install packages: say OK and go fix a cup of coffee
 ```
+
+For neovim you need the neovim python module installed, otherwise YouCompleteMe does not work.
+Either install it with your package manager or create a virtual environment
+```
+python3 -m venv $HOME/python_venv
+$HOME/python_venv/bin/activate
+pip install neovim
+```
+Also make sure, that you add `$HOME/python_venv/bin/activate` to your .bashrc (or equivalent)
