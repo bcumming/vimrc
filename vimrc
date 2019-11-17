@@ -26,8 +26,6 @@ NeoBundle 'bcumming/vim-luna'
 NeoBundle 'tpope/vim-sensible'
 " airline status bar
 NeoBundle 'bling/vim-airline'
-" awesome git!
-NeoBundle 'tpope/vim-fugitive'
 " git in the gutter
 NeoBundle 'airblade/vim-gitgutter'
 " use silver searcher in place of grep
@@ -36,22 +34,23 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
 NeoBundle 'vim-scripts/gitignore'
-" support for syntax, indentation etc in Julia
-NeoBundle 'JuliaLang/julia-vim'
 " easy swapping of windows
 NeoBundle 'wesQ3/vim-windowswap.git'
 " unicode from latex
 NeoBundle 'joom/latex-unicoder.vim'
-
-if v:version > 703
-    " provides fuzzy completer and clang based cleverness
-    NeoBundle 'Valloric/YouCompleteMe', {
-         \ 'build'      : {
-            \ 'mac'     : './install.sh --clang-completer',
-            \ 'unix'    : './install.sh --clang-completer',
-            \ }
-         \ }
-endif
+" provides fuzzy completer and clang based cleverness
+" NOTE:
+"   - For clang completion, an additional manual installetion step must be
+"     performed
+"
+"       cd ~/.vim/bundle/YouCompleteMe
+"       python3 install.py --clang-completer
+"
+"   - This uses the clang completer: I was never able to get the clangd
+"     completer to work as advertised
+"   - If getting strange errors related to YouCompleteMe, delete the
+"     ~/.vim/bundle path and reinstall everything
+NeoBundle 'Valloric/YouCompleteMe'
 
 call neobundle#end()
 
@@ -162,8 +161,11 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-inoremap "" ""
-inoremap '' ''
+inoremap "" "
+inoremap '' '
+inoremap (( (
+inoremap [[ [
+inoremap {{ {
 inoremap () ()
 inoremap [] []
 inoremap {} {}
@@ -201,23 +203,35 @@ nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
 
+"------------------------------------------
+" plugin-specific settings
+"------------------------------------------
+
+"
+" --- YouCompleteMe ---
+"
+
+" don't seek confirmation every time ycm_conf file is found
+let g:ycm_confirm_extra_conf = 0
+
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
 
-" latex to unicode
+"
+" --- LaTeX to unicode ---
+"
 let g:unicoder_cancel_normal = 1
 let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
 
-"------------------------------------------
-" plugin-specific settings
-"------------------------------------------
-
+"
 " --- ctrlp ---
+"
+
 " configure ctrlp to use ag for searching
 " this interacts nicely with the gitignore vim package
 let g:ctrlp_use_caching = 0
