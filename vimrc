@@ -40,17 +40,21 @@ NeoBundle 'wesQ3/vim-windowswap.git'
 NeoBundle 'joom/latex-unicoder.vim'
 " provides fuzzy completer and clang based cleverness
 " NOTE:
-"   - For clang completion, an additional manual installetion step must be
-"     performed
+"   - You need to run an additional setup step to make this useable
+"       cd ~/.vim/bundle/YouCompleteMe
+"       python3 install.py
+"
+"   - For clang completion you have to type a few more characters
 "
 "       cd ~/.vim/bundle/YouCompleteMe
-"       python3 install.py --clang-completer
+"       python3 install.py --clangd-completer  # option 1
+"       python3 install.py --clang-completer   # option 2
 "
-"   - This uses the clang completer: I was never able to get the clangd
-"     completer to work as advertised
+"   - option 1: uses clangd server (recommended)
+"   - option 2: uses old clang completer
 "   - If getting strange errors related to YouCompleteMe, delete the
 "     ~/.vim/bundle path and reinstall everything
-NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'ycm-core/YouCompleteMe'
 
 call neobundle#end()
 
@@ -218,6 +222,10 @@ let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
+" use suggested fix when available
+nnoremap <leader>t  ::YcmCompleter FixMe<CR>
+" refactor the name under the cursor
+nnoremap <leader>r  ::YcmCompleter RefactorRename<space>
 
 "
 " --- LaTeX to unicode ---
