@@ -1,69 +1,49 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-"------------------------------------------
-" neobundle
-"------------------------------------------
-if has('vim_starting')
-    " turn off vi compatability
-    if &compatible
-        set nocompatible
-    endif
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
 
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" --- my bundles ---
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
 
 " luna colorscheme
-NeoBundle 'bcumming/vim-luna'
+Plug 'bcumming/vim-luna'
 " sensible defaults
-NeoBundle 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 " airline status bar
-NeoBundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " git in the gutter
-NeoBundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " use silver searcher in place of grep
-NeoBundle 'rking/ag.vim'
+Plug 'rking/ag.vim'
 " control-p for finding files
-NeoBundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " use .gitignore to filter for commands that search files
-NeoBundle 'vim-scripts/gitignore'
-" easy swapping of windows
-NeoBundle 'wesQ3/vim-windowswap.git'
+Plug 'vim-scripts/gitignore'
 " unicode from latex
-NeoBundle 'joom/latex-unicoder.vim'
+Plug 'joom/latex-unicoder.vim'
 " provides fuzzy completer and clang based cleverness
 " NOTE:
 "   - You need to run an additional setup step to make this useable
-"       cd ~/.vim/bundle/YouCompleteMe
+"       cd ~/.vim/plugged/YouCompleteMe
 "       python3 install.py
 "
 "   - For clang completion you have to type a few more characters
 "
-"       cd ~/.vim/bundle/YouCompleteMe
+"       cd ~/.vim/plugged/YouCompleteMe
 "       python3 install.py --clangd-completer  # option 1
 "       python3 install.py --clang-completer   # option 2
 "
 "   - option 1: uses clangd server (recommended)
 "   - option 2: uses old clang completer
 "   - If getting strange errors related to YouCompleteMe, delete the
-"     ~/.vim/bundle path and reinstall everything
-NeoBundle 'ycm-core/YouCompleteMe'
+"     ~/.vim/plugged path and reinstall everything
+Plug 'ycm-core/YouCompleteMe'
 
-call neobundle#end()
 
-" turn on file specific rules set in the path ~/.vim/after/__language__.vim
-" also required by neobundle
-filetype plugin indent on
-
-" prompt to install uninstalled bundles found on startup
-NeoBundleCheck
+" Initialize plugin system
+call plug#end()
 
 "------------------------------------------
 " general settings
@@ -157,24 +137,6 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 
 " in interactive mode hitting ;; quickly produces an underscore
 inoremap ;; _
-
-" automatic closing of braces and quotes
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
-inoremap "" "
-inoremap '' '
-inoremap (( (
-inoremap [[ [
-inoremap {{ {
-inoremap () ()
-inoremap [] []
-inoremap {} {}
 
 " set leader to space
 let mapleader = "\<Space>"
