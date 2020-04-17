@@ -102,24 +102,26 @@ set tabstop=4 " make real tabs 4 wide
 " wrap long lines
 set wrap
 
-" Tell vim to remember certain things when we exit
-" '10  :  marks will be remembered for up to 10 previously edited files
-" "100 :  will save up to 100 lines for each register
-" :20  :  up to 20 lines of command-line history will be remembered
-set viminfo='10,\"100,:20,%,n~/.viminfo
+if !has('nvim')
+    " Tell vim to remember certain things when we exit
+    " '10  :  marks will be remembered for up to 10 previously edited files
+    " "100 :  will save up to 100 lines for each register
+    " :20  :  up to 20 lines of command-line history will be remembered
+    set viminfo='10,\"100,:20,%,n~/.viminfo
 
-" now restore position based on info saved in viminfo
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
+    " now restore position based on info saved in viminfo
+    function! ResCur()
+      if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+      endif
+    endfunction
 
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
-augroup END
+    augroup resCur
+      autocmd!
+      autocmd BufWinEnter * call ResCur()
+    augroup END
+endif
 
 "------------------------------------------
 " search options
@@ -218,6 +220,8 @@ let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
 nnoremap <leader>t  ::YcmCompleter GetType<CR>
+" print type of symbol under the cursor
+nnoremap <leader>f  ::YcmCompleter FixIt<CR>
 
 "
 " --- LaTeX to unicode ---
