@@ -175,6 +175,13 @@ nnoremap <leader><down>  :resize -5<CR>
 " plugin-specific settings
 "------------------------------------------
 
+
+"
+" --- GitGutter ---
+"
+
+nnoremap <leader>gg ::GitGutterToggle<CR>
+
 "
 " --- YouCompleteMe ---
 "
