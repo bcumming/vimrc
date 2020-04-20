@@ -191,6 +191,9 @@ nnoremap <leader>f  ::YcmCompleter FixIt<CR>
 " refactor the name under the cursor
 nnoremap <leader>r  ::YcmCompleter RefactorRename<space>
 
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+
 "
 " --- LaTeX to unicode ---
 "
@@ -199,6 +202,14 @@ let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
+
+highlight YcmWarningSign    ctermfg=14
+highlight YcmWarningSection ctermfg=14
+highlight YcmErrorSign      ctermfg=14
+highlight YcmErrorSection   ctermfg=14
+
+highlight YcmWarningSection cterm=bold
+highlight YcmErrorSection   cterm=bold
 
 "
 " --- ctrlp ---
