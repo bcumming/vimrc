@@ -6,5 +6,6 @@
 
 .netrwhist
 bundle/*
+plugged/*
 
 .vim

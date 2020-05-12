@@ -1,135 +1,86 @@
 " skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+" Enable this with care. Colors are applied from the GUI subset, not term subset
+" Take good care of the colorscheme that is applied, because it only checks for
+" if a gui is running, not if termguicolors is enabled, this should probably be
+" changed accordingly
+"if exists('+termguicolors')
+"  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"  set termguicolors
+"endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 
-" Required:
-if dein#load_state('~/.vim/bundle/')
-  call dein#begin('~/.vim/bundle/')
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
+    " luna colorscheme
+    Plug 'bcumming/vim-luna'
+    " sensible defaults
+    Plug 'tpope/vim-sensible'
+    " airline status bar
+    Plug 'bling/vim-airline'
+    " git in the gutter
+    Plug 'airblade/vim-gitgutter'
+    " use silver searcher in place of grep
+    Plug 'mileszs/ack.vim'
+    " control-p for finding files
+    Plug 'kien/ctrlp.vim'
+    " use .gitignore to filter for commands that search files
+    Plug 'vim-scripts/gitignore'
+    " strip whitespace after exiting Insert mode
+    Plug 'thirtythreeforty/lessspace.vim'
+    " keep track of surroundings (brackets, parantheses, xml tags, etc)
+    Plug 'tpope/vim-surround'
+    " repeat commands from plugins (i.e. when you press .)
+    Plug 'tpope/vim-repeat'
 
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  call dein#add('bcumming/vim-luna')
-  " sensible defaults
-  call dein#add('tpope/vim-sensible')
-" airline status bar
-  call dein#add('bling/vim-airline')
-" awesome git!
-  call dein#add('tpope/vim-fugitive')
-" git in the gutter
-  call dein#add('airblade/vim-gitgutter')
-" use silver searcher in place of grep
-  call dein#add('mileszs/ack.vim')
-" control-p for finding files
-  call dein#add('kien/ctrlp.vim')
-" use .gitignore to filter for commands that search files
-  call dein#add('vim-scripts/gitignore')
-" support for syntax, indentation etc in Julia
-  call dein#add('JuliaLang/julia-vim')
-" easy swapping of windows
-  call dein#add('wesQ3/vim-windowswap.git')
-" unicode from latex
-  call dein#add('joom/latex-unicoder.vim')
-  call dein#add('thirtythreeforty/lessspace.vim')
-  call dein#add('kana/vim-altr.git')
-  " auto-insertion of brackets-like characters with jump markers (hit <C-J> to
-  " jump to the next marker
-  call dein#add('LucHermitte/lh-vim-lib')
-  call dein#add('LucHermitte/lh-style')
-  call dein#add('LucHermitte/lh-brackets')
-  " vim-localrc allows to specify local settings per folder (walking up the
-  " directory structure
-  call dein#add('thinca/vim-localrc')
-  if v:version > 703
     " provides fuzzy completer and clang based cleverness
-    call dein#add('Valloric/YouCompleteMe', {'build': 'python3 install.py --clang-completer --clangd-completer'})
-  endif
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Use clang completer instead of clangd (the latter one does not work as I
-" want it to work yet)
-let g:ycm_use_clangd = 0
-
-" Required:
-" turn on file specific rules set in the path ~/.vim/after/__language__.vim
-" also required by neobundle
-filetype plugin indent on
-
-" syntax hilighting
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-" if dein#check_update()
-"  call dein#update()
-" endif
-
-"End dein Scripts-------------------------
+    " NOTE:
+    "   - You need to run an additional setup step to make this useable
+    "       cd ~/.vim/plugged/YouCompleteMe
+    "       python3 install.py
+    "
+    "   - For clang completion you have to type a few more characters
+    "
+    "       cd ~/.vim/plugged/YouCompleteMe
+    "       python3 install.py --clangd-completer  # option 1
+    "       python3 install.py --clang-completer   # option 2
+    "
+    "   - option 1: uses clangd server (recommended)
+    "   - option 2: uses old clang completer
+    "   - If getting strange errors related to YouCompleteMe, delete the
+    "     ~/.vim/plugged path and reinstall everything
+    Plug 'ycm-core/YouCompleteMe'
+call plug#end()
 
 "------------------------------------------
 " general settings
 "------------------------------------------
 
+" syntax hilighting
+syntax on
+
 " tab completion to complete only common parts
 set wildmode=longest,list,full
 set wildmenu
-
-" Altr settings to switch between buffers
-call altr#define('%/src/%.cpp', '%/include/%.h')
 
 " utf
 set encoding=utf-8
 
 " swap between buffers without needing to save
 set hidden
+set history=5000
+set undolevels=1000
 
 " none of these are word dividers
 set iskeyword+=_,#
 
 " line numbers
-set nu
+set nu rnu
 
 " optimize macro execution by not redrawing until macro is finished
 set lazyredraw
-
-" hilight tabs
-set list
-set listchars=tab:>-
-
-" highlight trailing whitespaces
-:highlight ExtraWhitespace ctermbg=red guibg=red
-" Show trailing whitespace:
-:match ExtraWhitespace /\s\+$/
-"
-" " Show trailing whitespace and spaces before a tab:
-:match ExtraWhitespace /\s\+$\| \+\ze\t/
-"
-" " Show tabs that are not at the start of a line:
-:match ExtraWhitespace /[^\t]\zs\t\+/
-"
-" " Show spaces used for indenting (so you use only tabs for indenting).
-" :match ExtraWhitespace /^\t*\zs \+/
-"
-" " Switch off :match highlighting.
-" :match
-"
-
 
 " show matching brackets
 set showmatch
@@ -143,41 +94,62 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
+" open new vsplits on the right
+set splitright
+" open new hsplits below
+set splitbelow
+
 " wrap long lines
 set wrap
 
 " Do not fold when a file is opened
 set nofoldenable
 
-" Hit Esc twice to save the file
-map <Esc><Esc> :wall<CR>
+" use system clipboard for copying
+set clipboard=unnamedplus
 
-" Tell vim to remember certain things when we exit
-" '10  :  marks will be remembered for up to 10 previously edited files
-" "100 :  will save up to 100 lines for each register
-" :20  :  up to 20 lines of command-line history will be remembered
+" Limit popup menu height
+set pumheight=20
+
+" reduce updatetime for faster YCM help popups
+set updatetime=1000
+
+" autoread files, i.e. reload on change (on terminal focus a check is run)
+set autoread
+au FocusGained * :checktime
+
+" per project settings (.nvimrm / .vimrc)
+"set exrc
+"set secure
+
 if !has('nvim')
-  set viminfo='10,\"100,:20,%,n~/.viminfo
+    " Tell vim to remember certain things when we exit
+    " '10  :  marks will be remembered for up to 10 previously edited files
+    " "100 :  will save up to 100 lines for each register
+    " :20  :  up to 20 lines of command-line history will be remembered
+    set viminfo='10,\"100,:20,%,n~/.viminfo
+
+    " now restore position based on info saved in viminfo
+    function! ResCur()
+      if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+      endif
+    endfunction
+
+    augroup resCur
+      autocmd!
+      autocmd BufWinEnter * call ResCur()
+    augroup END
 endif
-
-" now restore position based on info saved in viminfo
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
-
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
-augroup END
 
 "------------------------------------------
 " search options
 "------------------------------------------
 " search as characters are entered
 set incsearch
+" ignore case when searching
+set ignorecase
 " highlight matches
 set hlsearch
 
@@ -192,10 +164,30 @@ else
     set t_Co=256
 endif
 
+" hilight tabs
+set list
+set listchars=tab:>-
+
+" highlight trailing whitespaces
+:highlight ExtraWhitespace ctermbg=red guibg=red
+" " Show trailing whitespace and spaces before a tab:
+:match ExtraWhitespace /\s\+$\| \+\ze\t/
+" " Switch off :match highlighting.
+" :match
+"
+
 " hilight current line by making the row number on the lhs stand out
 set cursorline
-hi CursorLine ctermbg=NONE cterm=NONE term=NONE
-hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
+hi CursorLine ctermbg=236 cterm=bold term=bold
+hi CursorLineNr ctermfg=green ctermbg=236  term=bold cterm=bold
+
+" disable background, use term background
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+
+" parantheses matches
+hi MatchParen ctermbg=red cterm=bold ctermfg=white
+
 
 "------------------------------------------
 " key bindings
@@ -204,28 +196,15 @@ hi CursorLineNr ctermfg=166 ctermbg=236  term=bold cterm=bold
 " in interactive mode hitting ;; quickly produces an underscore
 inoremap ;; _
 
-nmap <F2> <Plug>(altr-forward)
-
 " set leader to space
 let mapleader = "\<Space>"
-
-" Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
-
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
 
 " hit leader then "e" to reload files that have changed outside the editor
 nnoremap <leader>e :edit<CR>
 
-" hit leader then "n" to remove line numbers
-nnoremap <leader>n :set nu!<CR>
+" hit leader then "n" to toggle between absolute/relative/no line numbers
+" noremap <silent> <Leader>n :if &number<bar>set nonumber<bar>set rnu<bar>elseif &rnu<bar>set nornu<bar>else<bar>set number<bar>endif<cr>
+noremap <silent> <Leader>n :if &rnu<bar>set nornu<bar>set nonumber<bar>elseif &number<bar>set rnu<bar>else<bar>set number<bar>endif<cr>
 
 " hit space space to remove hilights from previous search
 nnoremap <leader><Space> :nohlsearch<CR>
@@ -251,8 +230,41 @@ nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
 
+" Hit Esc twice to save all file
+map <Esc><Esc> :wall<CR>
+
+" Jump to end of line / beginning of line in insert mode
+inoremap <C-e> <C-o>$
+inoremap <C-b> <C-o>^
+
+" Esc with jkj or kjj insert mode
+"imap jkj <Esc>
+"imap kjj <Esc>
+
+"------------------------------------------
+" plugin-specific settings
+"------------------------------------------
+
+
+"
+" --- GitGutter ---
+"
+
+nnoremap <leader>gg ::GitGutterToggle<CR>
+
+"
+" --- YouCompleteMe ---
+"
+
+" don't seek confirmation every time ycm_conf file is found
+" let g:ycm_confirm_extra_conf = 0
+
 " default compilation flags for Ycm
-let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+" let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+
+let g:ycm_auto_trigger = 1
+
+
 " go to definition of variable/type/function under cursor
 nnoremap <leader>d  ::YcmCompleter GoTo<CR>
 " print type of symbol under the cursor
@@ -260,35 +272,36 @@ nnoremap <leader>t  ::YcmCompleter GetType<CR>
 " Go to include file on current line
 nnoremap <leader>o  ::YcmCompleter GoToInclude<CR>
 " Apply YCM FixIt
-nnoremap <leader><F9> :YcmCompleter FixIt<CR>
+nnoremap <leader>f ::YcmCompleter FixIt<CR>
+" refactor the name under the cursor
+nnoremap <leader>r  ::YcmCompleter RefactorRename<space>
 
-" latex to unicode
-let g:unicoder_cancel_normal = 1
-let g:unicoder_cancel_insert = 1
-let g:unicoder_cancel_visual = 1
-nnoremap <leader>u :call unicoder#start(0)<CR>
-vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
 
+" always add preview to completeopt to have a function preview
+let g:ycm_add_preview_to_completeopt = 1
+
+highlight YcmWarningSign    ctermfg=yellow
+highlight YcmWarningSection ctermfg=yellow
+highlight YcmErrorSign      ctermfg=red
+highlight YcmErrorSection   ctermfg=red
+
+highlight YcmWarningSection cterm=bold
+highlight YcmErrorSection   cterm=bold
+
+" ----- Airline ------
 " tab labeling ([tab number] filename modifiedPlusSign)
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#atbline#show_buffers = 0
+" let g:airline#extensions#tabline#fnamemod = ':t'
 
-" autoread files, i.e. reload on change (on terminal focus a check is run)
-set autoread
-au FocusGained * :checktime
-
-" per project settings (.nvimrm / .vimrc)
-set exrc
-set secure
-
-"------------------------------------------
-" plugin-specific settings
-"------------------------------------------
 
 " --- ctrlp ---
 " configure ctrlp to use ag for searching
 " this interacts nicely with the gitignore vim package
 let g:ctrlp_use_caching = 0
+let g:ctrlp_cmd = 'CtrlPMixed'
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
@@ -301,16 +314,10 @@ else
     \ }
 endif
 
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE
-
-
 " --- lh-bracket ---
 " delete empty placeholders when we jump to them
-let g:marker_select_empty_marks = 0
+"let g:marker_select_empty_marks = 0
 
-" use system clipboard for copying
-set clipboard+=unnamedplus
-" Esc with jkj or kjj insert mode
-imap jkj <Esc>
-imap kjj <Esc>
+" ---- Altr settings -----
+"call altr#define('%/src/%.cpp', '%/include/%.h')
+"nmap <F2> <Plug>(altr-forward)
