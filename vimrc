@@ -213,6 +213,9 @@ noremap <silent> <Leader>n :if &rnu<bar>set nornu<bar>set nonumber<bar>elseif &n
 " hit space space to remove hilights from previous search
 nnoremap <leader><Space> :nohlsearch<CR>
 
+" switch ignorecase
+nnoremap <leader>i :set ignorecase!<CR>
+
 " toggle paste mode
 " this ignores indentation rules when pasting
 nnoremap <leader>p :set paste! paste?<CR>
