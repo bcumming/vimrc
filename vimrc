@@ -36,6 +36,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'
     " ale linter
     Plug 'dense-analysis/ale'
+    " per project settings in .local.vimrc
+    Plug 'thinca/vim-localrc'
 
     " provides fuzzy completer and clang based cleverness
     " NOTE:
