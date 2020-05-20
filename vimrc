@@ -123,8 +123,8 @@ set autoread
 au FocusGained * :checktime
 
 " per project settings (.nvimrm / .vimrc)
-"set exrc
-"set secure
+set exrc
+set secure
 
 if !has('nvim')
     " Tell vim to remember certain things when we exit
