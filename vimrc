@@ -34,6 +34,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'
     " repeat commands from plugins (i.e. when you press .)
     Plug 'tpope/vim-repeat'
+    " ale linter
+    Plug 'dense-analysis/ale'
 
     " provides fuzzy completer and clang based cleverness
     " NOTE:
