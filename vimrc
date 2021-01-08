@@ -328,3 +328,13 @@ endif
 " ---- Altr settings -----
 "call altr#define('%/src/%.cpp', '%/include/%.h')
 "nmap <F2> <Plug>(altr-forward)
+"
+
+" ----- ALE linter settings -----
+let g:ale_linters = {
+\   'python': ['mypy'],
+\}
+
+let g:ale_sign_error = '>>'
+let g:ale_python_mypy_options = '--strict'
+
