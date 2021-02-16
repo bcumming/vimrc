@@ -23,8 +23,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/gitignore'
 " unicode from latex
 Plug 'joom/latex-unicoder.vim'
-" smarty pants parenthesis, quotes, etc closing
-Plug 'Raimondi/delimitMate'
 " provides fuzzy completer and clang based cleverness
 " NOTE:
 "   - You need to run an additional setup step to make this useable
