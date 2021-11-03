@@ -335,6 +335,11 @@ let g:ale_linters = {
 \   'python': ['mypy'],
 \}
 
+let python_path = split(escape(system("which python"), ' '), "\n")[0]
 let g:ale_sign_error = '>>'
 let g:ale_python_mypy_options = '--strict'
+"execute "let g:ale_python_mypy_options='--strict --python-executable=" . python_path . "'"
+" do not set python-executable in mypy_options here, but set it in the file mypy.ini with content:
+" [mypy]
+" python_executable = venv/bin/python
 
