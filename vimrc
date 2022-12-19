@@ -84,6 +84,11 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
 
+" open new vsplits on the right
+set splitright
+" open new hsplits below
+set splitbelow
+
 " wrap long lines
 set wrap
 
@@ -179,6 +184,13 @@ let &t_ut=''
 " plugin-specific settings
 "------------------------------------------
 
+
+"
+" --- GitGutter ---
+"
+
+nnoremap <leader>gg ::GitGutterToggle<CR>
+
 "
 " --- YouCompleteMe ---
 "
@@ -198,6 +210,14 @@ nnoremap <leader>r  ::YcmCompleter RefactorRename<space>
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 
+highlight YcmWarningSign    ctermfg=14
+highlight YcmWarningSection ctermfg=14
+highlight YcmErrorSign      ctermfg=14
+highlight YcmErrorSection   ctermfg=14
+
+highlight YcmWarningSection cterm=bold
+highlight YcmErrorSection   cterm=bold
+
 "
 " --- LaTeX to unicode ---
 "
@@ -206,14 +226,6 @@ let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 nnoremap <leader>u :call unicoder#start(0)<CR>
 vnoremap <leader>u :<C-u>call unicoder#selection()<CR>
-
-highlight YcmWarningSign    ctermfg=14
-highlight YcmWarningSection ctermfg=14
-highlight YcmErrorSign      ctermfg=14
-highlight YcmErrorSection   ctermfg=14
-
-highlight YcmWarningSection cterm=bold
-highlight YcmErrorSection   cterm=bold
 
 "
 " --- ctrlp ---
