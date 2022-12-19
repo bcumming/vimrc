@@ -39,7 +39,8 @@ Plug 'joom/latex-unicoder.vim'
 "   - option 2: uses old clang completer
 "   - If getting strange errors related to YouCompleteMe, delete the
 "     ~/.vim/plugged path and reinstall everything
-Plug 'ycm-core/YouCompleteMe'
+"
+"Plug 'ycm-core/YouCompleteMe'
 
 
 " Initialize plugin system
@@ -170,6 +171,9 @@ nnoremap <leader><right> :vertical resize +5<CR>
 nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
+
+" fix background redraw for GPU accelerated terminals like Kitty
+let &t_ut=''
 
 "------------------------------------------
 " plugin-specific settings
