@@ -15,7 +15,7 @@ mkdir -p .config/nvim && ln -s ~/.vim/init.vim .config/nvim/init.vim
 # to install all plugins
 vim +PlugInstal +qall # skip +qall if you want to see the results
 cd ~/.vim/plugged/YouCompleteMe
-./install.py --clangd-completer --rust-completer
+./install.py --clangd-completer --rust-completer --go-completer
 ```
 
 For neovim you need the neovim python module installed, otherwise YouCompleteMe does not work.
