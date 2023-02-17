@@ -38,6 +38,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'dense-analysis/ale'
     " per project settings in .local.vimrc
     Plug 'thinca/vim-localrc'
+    " Indentation highlight
+    Plug 'nathanaelkane/vim-indent-guides'
+    " move around by indentation
+    Plug 'jeetsukumaran/vim-indentwise'
 
     " provides fuzzy completer and clang based cleverness
     " NOTE:
@@ -192,7 +196,6 @@ hi! NonText ctermbg=NONE guibg=NONE
 " parantheses matches
 hi MatchParen ctermbg=red cterm=bold ctermfg=white
 
-
 "------------------------------------------
 " key bindings
 "------------------------------------------
@@ -321,6 +324,12 @@ else
     \ }
 endif
 
+" ----- vim-indent-guides ---------
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 1
+hi IndentGuidesOdd ctermbg=234
+hi IndentGuidesEven ctermbg=238
 " --- lh-bracket ---
 " delete empty placeholders when we jump to them
 "let g:marker_select_empty_marks = 0
