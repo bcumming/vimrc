@@ -101,6 +101,9 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4 " make real tabs 4 wide
+" disable expandtab for Makefiles, the TAB is crucial there
+autocmd FileType make setlocal noexpandtab
+
 
 " open new vsplits on the right
 set splitright
