@@ -250,6 +250,9 @@ map <Esc><Esc> :wall<CR>
 inoremap <C-e> <C-o>$
 inoremap <C-b> <C-o>^
 
+" copy to a tmux buffer
+vnoremap <silent><Leader>y "yy <Bar> :call system('tmux loadb -', @y)<CR>
+
 " Esc with jkj or kjj insert mode
 "imap jkj <Esc>
 "imap kjj <Esc>
