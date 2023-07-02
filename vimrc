@@ -243,6 +243,11 @@ nnoremap <leader><left>  :vertical resize -5<CR>
 nnoremap <leader><up>    :resize +5<CR>
 nnoremap <leader><down>  :resize -5<CR>
 
+" prev/next buffer with C-h and C-l, close with C-k
+nnoremap <C-h> :bp<CR>
+nnoremap <C-l> :bn<CR>
+nnoremap <C-k> :bd<CR>
+
 " Hit Esc twice to save all file
 map <Esc><Esc> :wall<CR>
 
