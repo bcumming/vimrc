@@ -13,8 +13,6 @@ Plug 'bcumming/vim-luna'
 Plug 'tpope/vim-sensible'
 " airline status bar
 Plug 'bling/vim-airline'
-" git in the gutter
-Plug 'airblade/vim-gitgutter'
 " use silver searcher in place of grep
 Plug 'rking/ag.vim'
 " control-p for finding files
